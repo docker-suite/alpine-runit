@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Make environnement variables accessibles
+[ -r /etc/envvars ] && . /etc/envvars
+
+echo "[LOG-SERVICE] -- Starting Service log-service ..."
+
+# A simple echo to show that this
+# fake service is running
+for i in `seq 1 10`
+do
+    echo "[LOG-SERVICE] -- $i"
+	sleep 1
+done
+
+# This simulate a crash
+echo >&2 "[LOG-SERVICE] -- just crashed!"
+
+# This exit code will be sent as the first parameter to the finish script
+exit 1

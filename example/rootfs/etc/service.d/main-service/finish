@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "[MAIN-SERVICE] -- Ending Service main-service with parameters ${@}"
+
+# This is the main service.
+# The container should stop whenever this service crash
+
+# Tell runit to shutdown the system:
+[ "$1" = 1 ] && runit stop &

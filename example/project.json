@@ -1,0 +1,11 @@
+{
+  "name": "craftdock/alpine-runit-example",
+  "default": "latest",
+  "versions": [
+    {
+      "version": "latest",
+      "dockerfile": "Dockerfile",
+      "context": "."
+    }
+  ]
+}

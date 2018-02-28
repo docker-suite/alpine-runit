@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "[LOG-SERVICE] -- Ending Service log-service with parameters ${@}"
+
+sleep 3
+
+# This service will automaticaly restart after 3 secondes

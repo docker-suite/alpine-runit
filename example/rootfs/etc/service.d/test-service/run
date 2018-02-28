@@ -1,0 +1,17 @@
+#!/bin/sh
+
+echo "... ... Starting Service test-service ... ..."
+
+# A simple echo to show that this
+# fake service is running
+for i in `seq 1 25`
+do
+    echo "[TEST-SERVICE] -- $i"
+	sleep 1
+done
+
+# This simulate a crash
+echo >&2 "[TEST-SERVICE] -- just crashed!"
+
+# This exit code will be sent as the first parameter to the finish script
+exit 1
