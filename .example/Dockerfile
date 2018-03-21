@@ -2,7 +2,7 @@ FROM craftdock/alpine-runit
 
 ENV LOGGER=false
 
-COPY ./rootfs /
+COPY /rootfs /
 
 RUN \
 	set -x \
