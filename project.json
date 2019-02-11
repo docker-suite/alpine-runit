@@ -4,8 +4,15 @@
   "versions": [
     {
       "version": "latest",
-      "dockerfile": "Dockerfile",
-      "context": "."
+      "dockerfile": "3.8/Dockerfile",
+      "context": "3.8/.",
+      "data": "3.8"
+    },
+    {
+      "version": "3.8",
+      "dockerfile": "3.8/Dockerfile",
+      "context": "3.8/.",
+      "data": "3.8"
     }
   ]
 }

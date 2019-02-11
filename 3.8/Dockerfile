@@ -1,4 +1,4 @@
-FROM craftdock/alpine-base:latest
+FROM craftdock/alpine-base:3.8
 
 LABEL maintainer="Hexosse <hexosse@gmail.com>" \
       description="Alpine runit process supervisor."
