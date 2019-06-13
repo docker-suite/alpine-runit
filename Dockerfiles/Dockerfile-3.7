@@ -1,0 +1,32 @@
+FROM dsuite/alpine-base:3.7
+
+LABEL maintainer="Hexosse <hexosse@gmail.com>" \
+      description="Alpine container with runit process supervisor." \
+      vendor="docker-suite" \
+      license="MIT"
+
+
+## When LOGGER is true, all outputs will be redirected to a log file
+ENV LOGGER=false
+
+
+## Install
+RUN \
+	# Print executed commands
+	set -x \
+    # Update repository indexes
+    && apk update \
+    # Download the install script and run it
+    && apk add curl \
+    && curl -s -o /tmp/install-runit.sh https://raw.githubusercontent.com/docker-suite/Install-Scripts/master/alpine-runit/install-runit.sh \
+    && sh /tmp/install-runit.sh \
+	# Clear apk's cache
+	&& apk-cleanup
+
+
+## Entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
+
+
+## Start runit
+CMD ["start"]

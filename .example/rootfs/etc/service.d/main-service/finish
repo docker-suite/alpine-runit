@@ -1,6 +1,10 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-echo "[MAIN-SERVICE] -- Ending Service main-service with parameters ${@}"
+# Add libraries
+source /usr/local/lib/bash-logger.sh
+source /usr/local/lib/persist-env.sh
+
+NOTICE "[MAIN-SERVICE] -- Ending Service main-service with parameters ${@}"
 
 # This is the main service.
 # The container should stop whenever this service crash

@@ -1,0 +1,10 @@
+{
+  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+  "terminal.integrated.showExitAlert": false,
+
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.associations": {
+    "Dockerfile-*": "dockerfile",
+  },
+}

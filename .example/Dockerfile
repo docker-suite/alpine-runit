@@ -1,6 +1,4 @@
-FROM craftdock/alpine-runit
-
-ENV LOGGER=false
+FROM dsuite/alpine-runit
 
 COPY /rootfs /
 

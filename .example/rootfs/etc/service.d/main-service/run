@@ -1,17 +1,21 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-echo "[MAIN-SERVICE] -- Starting Service main-service ..."
+# Add libraries
+source /usr/local/lib/bash-logger.sh
+source /usr/local/lib/persist-env.sh
+
+NOTICE "[MAIN-SERVICE] -- Starting Service main-service ..."
 
 # A simple echo to show that this
 # fake service is running
 for i in `seq 1 600`
 do
-    echo "[MAIN-SERVICE] -- $i - " `date`
+    NOTICE "[MAIN-SERVICE] -- $i - " `date`
 	sleep 1
 done
 
 # This simulate a crash
-echo >&2 "[MAIN-SERVICE] -- just crashed!"
+ERROR "[MAIN-SERVICE] -- just crashed!"
 
 # This exit code will be sent as the first parameter to the finish script
 exit 1

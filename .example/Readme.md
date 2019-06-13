@@ -1,8 +1,8 @@
-# alpine-runit example
+# ![](https://github.com/docker-suite/artwork/raw/master/logo/png/logo_32.png) alpine-runit example
 
-This is a simple example to illustrate how to use craftdock/alpine-runit
+This is a simple example to illustrate how to use dsuite/alpine-runit
 
-## What's in this image
+## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) What's in this image
 
 This example inlcude 3 services:  
 ```log-service```: a fake service which restart when it crash  
@@ -11,15 +11,15 @@ This example inlcude 3 services:
 
 Only ```log-service``` and ```main-service``` are enable at startup.
 
-## How to use it
+## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) How to use it
 
-Build ```docker build -t craftdock/alpine-runit-example .```  
-Run ```docker run -it --rm --name=runit-example craftdock/alpine-runit-example```
+Build ```docker build -t alpine-runit:example .```  
+Run ```docker run -it --rm --name=runit-example alpine-runit:example```
 
-Get an sh command prompt inside the container and play with the services:
+Get a bash command prompt inside the container and play with the services:
 
-```powershell
-docker exec -it runit-example sh
+```bash
+docker exec -it runit-example bash
 
 # Get help
 runit help

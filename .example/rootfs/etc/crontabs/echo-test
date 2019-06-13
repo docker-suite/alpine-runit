@@ -1,1 +1,3 @@
 */1 * * * * /etc/service.d/cron/echo-test
+*/1 * * * * ( sleep 20 ; /etc/service.d/cron/echo-test )
+*/1 * * * * ( sleep 40 ; /etc/service.d/cron/echo-test )
