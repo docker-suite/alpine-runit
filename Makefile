@@ -101,3 +101,13 @@ shell-3.9: build-3.9
 remove:
 	@docker images | grep $(DOCKER_IMAGE) | tr -s ' ' | cut -d ' ' -f 2 | xargs -I {} docker rmi $(DOCKER_IMAGE):{}
 
+readme:
+	@docker run -t --rm \
+		-e http_proxy=${http_proxy} \
+		-e https_proxy=${https_proxy} \
+		-e DEBUG_LEVEL=DEBUG \
+		-e DOCKER_USERNAME=${DOCKER_USERNAME} \
+		-e DOCKER_PASSWORD=${DOCKER_PASSWORD} \
+		-e DOCKER_IMAGE=${DOCKER_IMAGE} \
+		-v $(DIR):/data \
+		dsuite/hub-updater
