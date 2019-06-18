@@ -81,4 +81,4 @@ Inspired from [runitshover](https://github.com/HowardMei/runitshover) and others
 
 [alpine]: http://alpinelinux.org/
 [runit]: http://smarden.org/runit/
-[alpine-base]: https://hub.docker.com/r/docker-suite/alpine-base/
+[alpine-base]: https://github.com/docker-suite/alpine-base/
