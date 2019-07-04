@@ -16,6 +16,9 @@ trim_trailing_whitespace = false
 [*.json]
 indent_size = 2
 
+[*.{yml,yaml}]
+indent_size = 2
+
 [Dockerfile]
 trim_trailing_whitespace = false
 insert_final_newline = false
