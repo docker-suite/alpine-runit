@@ -61,12 +61,12 @@ runit stop
 A cron service is included, however it is not enable by default.  
 To enable if, just create the file enable in /etc/service.d/cron : `touch /etc/service.d/cron/enable`  
 Add your cron file into /etc/crontabs and it will automatically be added to /etc/crontabs/root  
-An example can be found in the [example folder](https://github.com/docker-suite/alpine-runit/tree/master/example).
+An example can be found in the [example folder](https://github.com/docker-suite/alpine-runit/tree/master/.example).
 
 
 ## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) An example
 
-Have a look at the [example folder](https://github.com/docker-suite/alpine-runit/tree/master/example). You'll find out how to create an image based on dsuite/alpine-runit
+Have a look at the [example folder](https://github.com/docker-suite/alpine-runit/tree/master/.example). You'll find out how to create an image based on dsuite/alpine-runit
 
 This example image contains:
 - An initialisation scripts: `/etc/runit/init.d/00-echo.sh`  
