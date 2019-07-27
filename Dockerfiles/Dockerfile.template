@@ -1,4 +1,4 @@
-FROM dsuite/alpine-base:3.7
+FROM dsuite/alpine-base:{{ALPINE_VERSION}}
 
 LABEL maintainer="Hexosse <hexosse@gmail.com>" \
       description="Alpine container with runit process supervisor." \
