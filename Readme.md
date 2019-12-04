@@ -5,6 +5,7 @@
 ![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/dsuite/alpine-runit/latest.svg?style=flat-square)
 ![MicroBadger Size (tag)](https://img.shields.io/microbadger/image-size/dsuite/alpine-runit/latest.svg?style=flat-square)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![dockeri.co](https://dockeri.co/image/dsuite/alpine-runit)](https://hub.docker.com/r/dsuite/alpine-runit)
 
 runit is an init scheme for Unix-like operating systems that initializes, supervises, and ends processes throughout the operating system.Runit is a reimplementation of the daemontools process supervision toolkit that runs on the Linux, Mac OS X, *BSD, and Solaris operating systems. Runit features parallelization of the start up of system services, which can speed up the boot time of the operating system.
 
@@ -14,9 +15,9 @@ Runit is an init daemon, so it is the direct or indirect ancestor of all other p
 
 ## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) What's in this image
 
-This image is built on top of the latest [Alpine base][alpine-base] container and integrate [runit][runit] as a process supervisor.
+This image is built on top of  [dsuite/alpine-base][alpine-base] container and integrate [runit][runit] as a process supervisor.
 
-This image can easly be used as a replacement of any Alpine which would include supervisor or any other process management.
+This image can easily be used as a replacement of any Alpine image which would include supervisor or any other process management.
 
 
 ## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) How to use it
@@ -59,14 +60,14 @@ runit stop
 ## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) A cron service
 
 A cron service is included, however it is not enable by default.  
-To enable if, just create the file enable in /etc/service.d/cron : `touch /etc/service.d/cron/enable`  
-Add your cron file into /etc/crontabs and it will automatically be added to /etc/crontabs/root  
+To enable it, just create the file `enable` in /etc/service.d/cron : `touch /etc/service.d/cron/enable`  
+Add your cron file into `/etc/crontabs` and it will automatically be added to `/etc/crontabs/root`  
 An example can be found in the [example folder](https://github.com/docker-suite/alpine-runit/tree/master/.example).
 
 
 ## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) An example
 
-Have a look at the [example folder](https://github.com/docker-suite/alpine-runit/tree/master/.example). You'll find out how to create an image based on dsuite/alpine-runit
+Have a look at the [example folder](https://github.com/docker-suite/alpine-runit/tree/master/.example). You'll find out how to create an image based on [dsuite/alpine-runit][alpine-runit]
 
 This example image contains:
 - An initialisation scripts: `/etc/runit/init.d/00-echo.sh`  
@@ -82,3 +83,4 @@ Inspired from [runitshover](https://github.com/HowardMei/runitshover) and others
 [alpine]: http://alpinelinux.org/
 [runit]: http://smarden.org/runit/
 [alpine-base]: https://github.com/docker-suite/alpine-base/
+[alpine-runit]: https://github.com/docker-suite/alpine-runit/
