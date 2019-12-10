@@ -5,10 +5,8 @@ LABEL maintainer="Hexosse <hexosse@gmail.com>" \
       vendor="docker-suite" \
       license="MIT"
 
-
 ## When LOGGER is true, all outputs will be redirected to a log file
 ENV LOGGER=false
-
 
 ## Install
 RUN \
@@ -22,7 +20,6 @@ RUN \
     && sh /tmp/install-runit.sh \
 	# Clear apk's cache
 	&& apk-cleanup
-
 
 ## Entrypoint
 ENTRYPOINT ["/entrypoint.sh"]

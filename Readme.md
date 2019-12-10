@@ -13,11 +13,19 @@ Runit is an init daemon, so it is the direct or indirect ancestor of all other p
 
 > (Source : [Wikipedia](https://en.wikipedia.org/wiki/Runit))
 
+
 ## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) What's in this image
 
 This image is built on top of  [dsuite/alpine-base][alpine-base] container and integrate [runit][runit] as a process supervisor.
 
 This image can easily be used as a replacement of any Alpine image which would include supervisor or any other process management.
+
+
+## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) Environment variables
+
+A full list of [dsuite/alpine-base environment variables][alpine-base-readme-variables] are described in the [alpine-base Readme][alpine-base-readme].
+
+Change the current user, set the timezone, use your own startup scripts, ...  and much more.
 
 
 ## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) How to use it
@@ -57,6 +65,7 @@ runit service MyService status
 runit stop
 ```
 
+
 ## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) A cron service
 
 A cron service is included, however it is not enable by default.  
@@ -77,10 +86,13 @@ This example image contains:
 - A service named test-service:  `/etc/runit/service.d/test-serviceservice` (with run script)  
 - A crontab:  `/etc/crontabs/echo-test`    
 
+
 ## ![](https://github.com/docker-suite/artwork/raw/master/various/pin/png/pin_16.png) Credits
 Inspired from [runitshover](https://github.com/HowardMei/runitshover) and others runit images found on GitHub.
 
 [alpine]: http://alpinelinux.org/
 [runit]: http://smarden.org/runit/
 [alpine-base]: https://github.com/docker-suite/alpine-base/
+[alpine-base-readme]: https://github.com/docker-suite/alpine-base/blob/master/Readme.md/
+[alpine-base-readme-variables]: https://github.com/docker-suite/alpine-base/blob/master/Readme.md#-environment-variables
 [alpine-runit]: https://github.com/docker-suite/alpine-runit/

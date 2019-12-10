@@ -1,171 +1,94 @@
+## Name of the image
 DOCKER_IMAGE=dsuite/alpine-runit
+
+## Current directory
 DIR:=$(strip $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))))
 
+## Define the latest version
+latest = 3.10
 
-build: build-3.7 build-3.8 build-3.9 build-3.10
+## Config
+.DEFAULT_GOAL := help
+.PHONY: *
 
-test: test-3.7 test-3.8 test-3.9 test-3.10
+help: ## This help!
+	@printf "\033[33mUsage:\033[0m\n  make [target] [arg=\"val\"...]\n\n\033[33mTargets:\033[0m\n"
+	@grep -E '^[-a-zA-Z0-9_\.\/]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[32m%-15s\033[0m %s\n", $$1, $$2}'
 
-push: push-3.7 push-3.8 push-3.9 push-3.10
+build: ## Build all versions
+	@$(MAKE) build-version v=3.7
+	@$(MAKE) build-version v=3.8
+	@$(MAKE) build-version v=3.9
+	@$(MAKE) build-version v=3.10
 
-build-3.7:
-	@docker run --rm \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e ALPINE_VERSION=3.7 \
-		-v $(DIR)/Dockerfiles:/data \
-		dsuite/alpine-data \
-		sh -c "templater Dockerfile.template > Dockerfile-3.7"
-	@docker build \
-		--build-arg http_proxy=${http_proxy} \
-		--build-arg https_proxy=${https_proxy} \
-		--file $(DIR)/Dockerfiles/Dockerfile-3.7 \
-		--tag $(DOCKER_IMAGE):3.7 \
-		$(DIR)/Dockerfiles
+test: ## Test all versions
+	$(MAKE) test-version v=3.7
+	$(MAKE) test-version v=3.8
+	$(MAKE) test-version v=3.9
+	$(MAKE) test-version v=3.10
 
-build-3.8:
-	@docker run --rm \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e ALPINE_VERSION=3.8 \
-		-v $(DIR)/Dockerfiles:/data \
-		dsuite/alpine-data \
-		sh -c "templater Dockerfile.template > Dockerfile-3.8"
-	@docker build \
-		--build-arg http_proxy=${http_proxy} \
-		--build-arg https_proxy=${https_proxy} \
-		--file $(DIR)/Dockerfiles/Dockerfile-3.8 \
-		--tag $(DOCKER_IMAGE):3.8 \
-		$(DIR)/Dockerfiles
+push: ## Push all versions
+	$(MAKE) push-version v=3.7
+	$(MAKE) push-version v=3.8
+	$(MAKE) push-version v=3.9
+	$(MAKE) push-version v=3.10
 
-build-3.9:
-	@docker run --rm \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e ALPINE_VERSION=3.9 \
-		-v $(DIR)/Dockerfiles:/data \
-		dsuite/alpine-data \
-		sh -c "templater Dockerfile.template > Dockerfile-3.9"
-	@docker build \
-		--build-arg http_proxy=${http_proxy} \
-		--build-arg https_proxy=${https_proxy} \
-		--file $(DIR)/Dockerfiles/Dockerfile-3.9 \
-		--tag $(DOCKER_IMAGE):3.9 \
-		$(DIR)/Dockerfiles
-	docker tag $(DOCKER_IMAGE):3.9 $(DOCKER_IMAGE):latest
-
-build-3.10:
-	@docker run --rm \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e ALPINE_VERSION=3.10 \
-		-v $(DIR)/Dockerfiles:/data \
-		dsuite/alpine-data \
-		sh -c "templater Dockerfile.template > Dockerfile-3.10"
-	@docker build \
-		--build-arg http_proxy=${http_proxy} \
-		--build-arg https_proxy=${https_proxy} \
-		--file $(DIR)/Dockerfiles/Dockerfile-3.10 \
-		--tag $(DOCKER_IMAGE):3.10 \
-		$(DIR)/Dockerfiles
-	docker tag $(DOCKER_IMAGE):3.10 $(DOCKER_IMAGE):latest
-
-
-test-3.7: build-3.7
-	@docker run --rm -t \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-v $(DIR)/tests:/goss \
-		-v /tmp:/tmp \
-		-v /var/run/docker.sock:/var/run/docker.sock \
-		dsuite/goss:latest \
-		dgoss run --entrypoint=/goss/entrypoint.sh $(DOCKER_IMAGE):3.7
-
-test-3.8: build-3.8
-	@docker run --rm -t \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-v $(DIR)/tests:/goss \
-		-v /tmp:/tmp \
-		-v /var/run/docker.sock:/var/run/docker.sock \
-		dsuite/goss:latest \
-		dgoss run --entrypoint=/goss/entrypoint.sh $(DOCKER_IMAGE):3.8
-
-test-3.9: build-3.9
-	@docker run --rm -t \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-v $(DIR)/tests:/goss \
-		-v /tmp:/tmp \
-		-v /var/run/docker.sock:/var/run/docker.sock \
-		dsuite/goss:latest \
-		dgoss run --entrypoint=/goss/entrypoint.sh $(DOCKER_IMAGE):3.9
-
-test-3.10: build-3.10
-	@docker run --rm -t \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-v $(DIR)/tests:/goss \
-		-v /tmp:/tmp \
-		-v /var/run/docker.sock:/var/run/docker.sock \
-		dsuite/goss:latest \
-		dgoss run --entrypoint=/goss/entrypoint.sh $(DOCKER_IMAGE):3.10
-
-push-3.7: build-3.7
-	@docker push $(DOCKER_IMAGE):3.7
-
-push-3.8: build-3.8
-	@docker push $(DOCKER_IMAGE):3.8
-
-push-3.9: build-3.9
-	@docker push $(DOCKER_IMAGE):3.9
-
-push-3.10: build-3.10
-	@docker push $(DOCKER_IMAGE):3.10
-	@docker push $(DOCKER_IMAGE):latest
-
-shell-3.7: build-3.7
+shell: ## Run shell ( usage : make shell v="3.10" )
+	$(eval version := $(or $(v),$(latest)))
+	@$(MAKE) build-version v=$(version)
+	@mkdir -p $(DIR)/packages
 	@docker run -it --rm \
 		-e http_proxy=${http_proxy} \
 		-e https_proxy=${https_proxy} \
 		-e DEBUG_LEVEL=DEBUG \
-		$(DOCKER_IMAGE):3.7 \
-		bash
+		$(DOCKER_IMAGE):$(version) \
+		sh
 
-shell-3.8: build-3.8
-	@docker run -it --rm \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e DEBUG_LEVEL=DEBUG \
-		$(DOCKER_IMAGE):3.8 \
-		bash
+remove: ## Remove all generated images
+	@docker images | grep $(DOCKER_IMAGE) | tr -s ' ' | cut -d ' ' -f 2 | xargs -I {} docker rmi $(DOCKER_IMAGE):{} || true
+	@docker images | grep $(DOCKER_IMAGE) | tr -s ' ' | cut -d ' ' -f 3 | xargs -I {} docker rmi {} || true
 
-shell-3.9: build-3.9
-	@docker run -it --rm \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e DEBUG_LEVEL=DEBUG \
-		$(DOCKER_IMAGE):3.9 \
-		bash
-
-shell-3.10: build-3.10
-	@docker run -it --rm \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e DEBUG_LEVEL=DEBUG \
-		$(DOCKER_IMAGE):3.10 \
-		bash
-
-remove:
-	@docker images | grep $(DOCKER_IMAGE) | tr -s ' ' | cut -d ' ' -f 2 | xargs -I {} docker rmi $(DOCKER_IMAGE):{}
-
-readme:
+readme: ## Generate docker hub full description
 	@docker run -t --rm \
 		-e http_proxy=${http_proxy} \
 		-e https_proxy=${https_proxy} \
-		-e DEBUG_LEVEL=DEBUG \
 		-e DOCKER_USERNAME=${DOCKER_USERNAME} \
 		-e DOCKER_PASSWORD=${DOCKER_PASSWORD} \
 		-e DOCKER_IMAGE=${DOCKER_IMAGE} \
 		-v $(DIR):/data \
 		dsuite/hub-updater
+
+build-version:
+	$(eval version := $(or $(v),$(latest)))
+	@docker run --rm \
+		-e http_proxy=${http_proxy} \
+		-e https_proxy=${https_proxy} \
+		-e ALPINE_VERSION=$(version) \
+		-v $(DIR)/Dockerfiles:/data \
+		dsuite/alpine-data \
+		sh -c "templater Dockerfile.template > Dockerfile-$(version)"
+	@docker build \
+		--build-arg http_proxy=${http_proxy} \
+		--build-arg https_proxy=${https_proxy} \
+		--file $(DIR)/Dockerfiles/Dockerfile-$(version) \
+		--tag $(DOCKER_IMAGE):$(version) \
+		$(DIR)/Dockerfiles
+	@[ "$(version)" = "$(latest)" ] && docker tag $(DOCKER_IMAGE):$(version) $(DOCKER_IMAGE):latest || true
+
+test-version:
+	$(eval version := $(or $(v),$(latest)))
+	@$(MAKE) build-version v=$(version)
+	@docker run --rm -t \
+		-e http_proxy=${http_proxy} \
+		-e https_proxy=${https_proxy} \
+		-v $(DIR)/tests:/goss \
+		-v /tmp:/tmp \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		dsuite/goss:latest \
+		dgoss run --entrypoint=/goss/entrypoint.sh $(DOCKER_IMAGE):$(version)
+
+push-version:
+	$(eval version := $(or $(v),$(latest)))
+	@$(MAKE) build-version v=$(version)
+	@docker push $(DOCKER_IMAGE):$(version)
+	@[ "$(version)" = "$(latest)" ] && docker push $(DOCKER_IMAGE):latest || true

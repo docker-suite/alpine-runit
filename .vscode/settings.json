@@ -6,5 +6,6 @@
   "files.autoSaveDelay": 1000,
   "files.associations": {
     "Dockerfile-*": "dockerfile",
+    "Dockerfile.*": "dockerfile",
   },
 }
