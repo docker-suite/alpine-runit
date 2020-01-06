@@ -5,7 +5,7 @@ DOCKER_IMAGE=dsuite/alpine-runit
 DIR:=$(strip $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))))
 
 ## Define the latest version
-latest = 3.10
+latest = 3.11
 
 ## Config
 .DEFAULT_GOAL := help
@@ -20,18 +20,21 @@ build: ## Build all versions
 	@$(MAKE) build-version v=3.8
 	@$(MAKE) build-version v=3.9
 	@$(MAKE) build-version v=3.10
+	@$(MAKE) build-version v=3.11
 
 test: ## Test all versions
 	$(MAKE) test-version v=3.7
 	$(MAKE) test-version v=3.8
 	$(MAKE) test-version v=3.9
 	$(MAKE) test-version v=3.10
+	$(MAKE) test-version v=3.11
 
 push: ## Push all versions
 	$(MAKE) push-version v=3.7
 	$(MAKE) push-version v=3.8
 	$(MAKE) push-version v=3.9
 	$(MAKE) push-version v=3.10
+	$(MAKE) push-version v=3.11
 
 shell: ## Run shell ( usage : make shell v="3.10" )
 	$(eval version := $(or $(v),$(latest)))
