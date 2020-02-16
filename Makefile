@@ -1,5 +1,7 @@
-## Name of the image
+## Meta data about the image
 DOCKER_IMAGE=dsuite/alpine-runit
+DOCKER_IMAGE_CREATED=$(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
+DOCKER_IMAGE_REVISION=$(shell git rev-parse --short HEAD)
 
 ## Current directory
 DIR:=$(strip $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))))
@@ -67,6 +69,8 @@ build-version:
 		-e http_proxy=${http_proxy} \
 		-e https_proxy=${https_proxy} \
 		-e ALPINE_VERSION=$(version) \
+		-e DOCKER_IMAGE_CREATED=$(DOCKER_IMAGE_CREATED) \
+		-e DOCKER_IMAGE_REVISION=$(DOCKER_IMAGE_REVISION) \
 		-v $(DIR)/Dockerfiles:/data \
 		dsuite/alpine-data \
 		sh -c "templater Dockerfile.template > Dockerfile-$(version)"

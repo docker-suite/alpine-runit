@@ -1,9 +1,16 @@
 FROM dsuite/alpine-base:{{ALPINE_VERSION}}
 
 LABEL maintainer="Hexosse <hexosse@gmail.com>" \
-      description="Alpine container with runit process supervisor." \
-      vendor="docker-suite" \
-      license="MIT"
+    org.opencontainers.image.title="docker-suite dsuite/alpine-runit image" \
+    org.opencontainers.image.description="Alpine container with runit process supervisor" \
+    org.opencontainers.image.authors="Hexosse <hexosse@gmail.com>" \
+    org.opencontainers.image.vendor="docker-suite" \
+    org.opencontainers.image.licenses="MIT" \
+    org.opencontainers.image.url="https://github.com/docker-suite/alpine-runit" \
+    org.opencontainers.image.source="https://github.com/docker-suite/alpine-runit" \
+    org.opencontainers.image.documentation="https://github.com/docker-suite/alpine-runit/blob/master/Readme.md" \
+    org.opencontainers.image.created="{{DOCKER_IMAGE_CREATED}}" \
+    org.opencontainers.image.revision="{{DOCKER_IMAGE_REVISION}}"
 
 ## When LOGGER is true, all outputs will be redirected to a log file
 ENV LOGGER=false
