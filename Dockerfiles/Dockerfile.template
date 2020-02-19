@@ -12,6 +12,9 @@ LABEL maintainer="Hexosse <hexosse@gmail.com>" \
     org.opencontainers.image.created="{{DOCKER_IMAGE_CREATED}}" \
     org.opencontainers.image.revision="{{DOCKER_IMAGE_REVISION}}"
 
+# Github token
+ARG GH_TOKEN
+
 ## When LOGGER is true, all outputs will be redirected to a log file
 ENV LOGGER=false
 

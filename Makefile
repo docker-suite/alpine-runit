@@ -77,6 +77,7 @@ build-version:
 	@docker build \
 		--build-arg http_proxy=${http_proxy} \
 		--build-arg https_proxy=${https_proxy} \
+		--build-arg GH_TOKEN=${GH_TOKEN} \
 		--file $(DIR)/Dockerfiles/Dockerfile-$(version) \
 		--tag $(DOCKER_IMAGE):$(version) \
 		$(DIR)/Dockerfiles
