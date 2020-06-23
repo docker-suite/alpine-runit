@@ -10,4 +10,7 @@ NOTICE "[MAIN-SERVICE] -- Ending Service main-service with parameters ${@}"
 # The container should stop whenever this service crash
 
 # Tell runit to shutdown the system:
-[ "$1" = 1 ] && runit stop &
+if [ "$1" = 1 ] && [ "$MAIN_RESTART" = 0 ]; then
+    NOTICE "[MAIN-SERVICE] -- Stopping runit ..."
+    runit stop &
+fi

@@ -10,7 +10,7 @@ NOTICE "[MAIN-SERVICE] -- Starting Service main-service ..."
 # fake service is running
 for i in `seq 1 600`
 do
-    NOTICE "[MAIN-SERVICE] -- $i - " `date`
+    NOTICE "[MAIN-SERVICE] -- $i - $(date) - Auto restart:$MAIN_RESTART"
 	sleep 1
 done
 
