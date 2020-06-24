@@ -93,17 +93,6 @@ package:
   runit:
     installed: true
 
-command:
-  gpg-verify:
-    exit-status: 0
-    exec: "runit -l"
-    stdout:
-      - log-service
-      - main-service
-      - test-service
-    stderr: []
-    skip: false
-
 group:
   dsuite:
     exists: true
