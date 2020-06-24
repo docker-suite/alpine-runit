@@ -28,7 +28,7 @@ build: ## Build ( usage : make build v=3.12 )
 		-v $(DIR)/Dockerfiles:/data \
 		dsuite/alpine-data \
 		sh -c "templater Dockerfile.template > Dockerfile-$(version)"
-	@docker build \
+	@docker build --force-rm \
 		--build-arg http_proxy=${http_proxy} \
 		--build-arg https_proxy=${https_proxy} \
 		--build-arg GH_TOKEN=${GH_TOKEN} \
