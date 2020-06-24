@@ -17,6 +17,14 @@ help: ## This help!
 	@printf "\033[33mUsage:\033[0m\n  make [target] [arg=\"val\"...]\n\n\033[33mTargets:\033[0m\n"
 	@grep -E '^[-a-zA-Z0-9_\.\/]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[32m%-15s\033[0m %s\n", $$1, $$2}'
 
+all: ## Build all supported versions
+	@$(MAKE) build v=3.7
+	@$(MAKE) build v=3.8
+	@$(MAKE) build v=3.9
+	@$(MAKE) build v=3.10
+	@$(MAKE) build v=3.11
+	@$(MAKE) build v=3.12
+
 build: ## Build ( usage : make build v=3.12 )
 	$(eval version := $(or $(v),$(latest)))
 	@docker run --rm \
