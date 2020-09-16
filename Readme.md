@@ -32,9 +32,9 @@ Change the current user, set the timezone, use your own startup scripts, ...  an
 
 Add your initialisation scripts in: `/etc/runit/init.d`  
 Add your shutdown scripts in: `/etc/runit/finish.d`  
-Any services should be placed in: `/etc/service.d/` (with run and finish script)  
-Create the file enable in /etc/service.d/MyService/ to enable the service at startup: `touch /etc/service.d/MyService/enable`.  
-Create the file disable in /etc/service.d/MyService/ to disable the service at startup: `touch /etc/service.d/MyService/disable`.  
+:warning: Any services should be placed in: `/etc/service.d/` (with run and finish script)  
+Create the file enable in `/etc/service.d/MyService/` to enable the service at startup: `touch /etc/service.d/MyService/enable`.  
+Create the file disable in `/etc/service.d/MyService/` to disable the service at startup: `touch /etc/service.d/MyService/disable`.  
 Disabling a service is predominante over enabling it.
 
 Run it: `docker run -it -d --name=runit dsuite/alpine-runit`
