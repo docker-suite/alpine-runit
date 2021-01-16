@@ -48,8 +48,6 @@ file:
     exists: true
     mode: "0755"
     filetype: file
-    contains:
-    - "exec tini --"
   /etc/periodic/daily/logrotate:
     exists: true
     mode: "0755"
@@ -92,6 +90,13 @@ package:
     installed: true
   runit:
     installed: true
+
+command:
+  services:
+    exit-status: 0
+    exec: "runit -l"
+    stderr: []
+    skip: false
 
 group:
   dsuite:

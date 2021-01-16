@@ -7,7 +7,7 @@ DOCKER_IMAGE_REVISION=$(shell git rev-parse --short HEAD)
 DIR:=$(strip $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))))
 
 ## Define the latest version
-latest = 3.12
+latest = 3.13
 
 ## Config
 .DEFAULT_GOAL := help
@@ -17,20 +17,36 @@ help: ## This help!
 	@printf "\033[33mUsage:\033[0m\n  make [target] [arg=\"val\"...]\n\n\033[33mTargets:\033[0m\n"
 	@grep -E '^[-a-zA-Z0-9_\.\/]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[32m%-15s\033[0m %s\n", $$1, $$2}'
 
-all: ## Build all supported versions
+build-all: ## Build all supported versions
 	@$(MAKE) build v=3.7
 	@$(MAKE) build v=3.8
 	@$(MAKE) build v=3.9
 	@$(MAKE) build v=3.10
 	@$(MAKE) build v=3.11
 	@$(MAKE) build v=3.12
+	@$(MAKE) build v=3.13
+
+test-all: ## Test all supported versions
+	@$(MAKE) test v=3.7
+	@$(MAKE) test v=3.8
+	@$(MAKE) test v=3.9
+	@$(MAKE) test v=3.10
+	@$(MAKE) test v=3.11
+	@$(MAKE) test v=3.12
+	@$(MAKE) test v=3.13
+
+push-all: ## Push all supported versions
+	@$(MAKE) push v=3.7
+	@$(MAKE) push v=3.8
+	@$(MAKE) push v=3.9
+	@$(MAKE) push v=3.10
+	@$(MAKE) push v=3.11
+	@$(MAKE) push v=3.12
+	@$(MAKE) push v=3.13
 
 build: ## Build ( usage : make build v=3.12 )
 	$(eval version := $(or $(v),$(latest)))
 	@docker run --rm \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e no_proxy=${no_proxy} \
 		-e ALPINE_VERSION=$(version) \
 		-e DOCKER_IMAGE_CREATED=$(DOCKER_IMAGE_CREATED) \
 		-e DOCKER_IMAGE_REVISION=$(DOCKER_IMAGE_REVISION) \
@@ -38,9 +54,6 @@ build: ## Build ( usage : make build v=3.12 )
 		dsuite/alpine-data \
 		sh -c "templater Dockerfile.template > Dockerfile-$(version)"
 	@docker build --force-rm \
-		--build-arg http_proxy=${http_proxy} \
-		--build-arg https_proxy=${https_proxy} \
-		--build-arg no_proxy=${no_proxy} \
 		--build-arg GH_TOKEN=${GH_TOKEN} \
 		--file $(DIR)/Dockerfiles/Dockerfile-$(version) \
 		--tag $(DOCKER_IMAGE):$(version) \
@@ -49,11 +62,7 @@ build: ## Build ( usage : make build v=3.12 )
 
 test: ## Test ( usage : make test v=3.12 )
 	$(eval version := $(or $(v),$(latest)))
-	@$(MAKE) build v=$(version)
 	@docker run --rm -t \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e no_proxy=${no_proxy} \
 		-v $(DIR)/tests:/goss \
 		-v /tmp:/tmp \
 		-v /var/run/docker.sock:/var/run/docker.sock \
@@ -62,18 +71,12 @@ test: ## Test ( usage : make test v=3.12 )
 
 push: ## Push ( usage : make push v=3.12 )
 	$(eval version := $(or $(v),$(latest)))
-	@$(MAKE) build v=$(version)
 	@docker push $(DOCKER_IMAGE):$(version)
 	@[ "$(version)" = "$(latest)" ] && docker push $(DOCKER_IMAGE):latest || true
 
 shell: ## Run shell ( usage : make shell v=3.12 )
 	$(eval version := $(or $(v),$(latest)))
-	@$(MAKE) build v=$(version)
-	@mkdir -p $(DIR)/packages
 	@docker run -it --rm \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e no_proxy=${no_proxy} \
 		-e DEBUG_LEVEL=DEBUG \
 		$(DOCKER_IMAGE):$(version) \
 		bash
@@ -84,9 +87,6 @@ remove: ## Remove all generated images
 
 readme: ## Generate docker hub full description
 	@docker run -t --rm \
-		-e http_proxy=${http_proxy} \
-		-e https_proxy=${https_proxy} \
-		-e no_proxy=${no_proxy} \
 		-e DOCKER_USERNAME=${DOCKER_USERNAME} \
 		-e DOCKER_PASSWORD=${DOCKER_PASSWORD} \
 		-e DOCKER_IMAGE=${DOCKER_IMAGE} \
