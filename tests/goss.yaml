@@ -1,24 +1,25 @@
 file:
-  /usr/local/sbin/gh-downloader:
+  /entrypoint.sh:
     exists: true
     mode: "0755"
     filetype: file
-  /usr/local/sbin/templater:
+  /etc/runit/1:
     exists: true
     mode: "0755"
     filetype: file
-  /usr/local/sbin/wait-host:
+  /etc/runit/2:
     exists: true
     mode: "0755"
     filetype: file
-  /usr/local/sbin/mvlink:
+  /etc/runit/3:
     exists: true
     mode: "0755"
     filetype: file
-  /usr/local/lib/bash-logger.sh:
+  /etc/runit/ctrlaltdel:
     exists: true
+    mode: "0755"
     filetype: file
-  /usr/local/lib/persist-env.sh:
+  /etc/runit/logger:
     exists: true
     filetype: file
   /usr/local/bin/runit:
@@ -29,65 +30,8 @@ file:
     exists: true
     mode: "0755"
     filetype: file
-  /etc/runit/1:
-    exists: true
-    filetype: file
-  /etc/runit/2:
-    exists: true
-    filetype: file
-  /etc/runit/3:
-    exists: true
-    filetype: file
-  /etc/runit/ctrlaltdel:
-    exists: true
-    filetype: file
-  /etc/runit/logger:
-    exists: true
-    filetype: file
-  /entrypoint.sh:
-    exists: true
-    mode: "0755"
-    filetype: file
-  /etc/periodic/daily/logrotate:
-    exists: true
-    mode: "0755"
-    filetype: file
-  /tmp/stdout.log:
-    exists: true
-    contains:
-    {{if getEnv "BOOT_DELAY" | eq ""}}
-    - "!Boot delayed"
-    {{else if getEnv "BOOT_DELAY" | eq "0"}}
-    - "!Boot delayed"
-    {{else}}
-    - "Boot delayed"
-    {{end}}
-  /etc/entrypoint.d/000-base.sh:
-    exists: true
-    mode: "0755"
-    filetype: file
 
 package:
-  bash:
-    installed: true
-  curl:
-    installed: true
-  grep:
-    installed: true
-  jq:
-    installed: true
-  logrotate:
-    installed: true
-  procps:
-    installed: true
-  sed:
-    installed: true
-  shadow:
-    installed: true
-  su-exec:
-    installed: true
-  tini:
-    installed: true
   runit:
     installed: true
 
@@ -96,31 +40,4 @@ command:
     exit-status: 0
     exec: "runit -l"
     stderr: []
-    skip: false
-
-group:
-  dsuite:
-    exists: true
-    {{if getEnv "NEW_GID" | eq "1005"}}
-    gid: 1005
-    {{else}}
-    gid: 1000
-    {{end}}
-    skip: false
-
-user:
-  dsuite:
-    exists: true
-    {{if getEnv "NEW_UID" | eq "1005"}}
-    uid: 1005
-    {{else}}
-    uid: 1000
-    {{end}}
-    {{if getEnv "NEW_GID" | eq "1005"}}
-    gid: 1005
-    {{else}}
-    gid: 1000
-    {{end}}
-    groups:
-    - dsuite
     skip: false

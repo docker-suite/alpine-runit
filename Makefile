@@ -62,12 +62,8 @@ build: ## Build ( usage : make build v=3.12 )
 
 test: ## Test ( usage : make test v=3.12 )
 	$(eval version := $(or $(v),$(latest)))
-	@docker run --rm -t \
-		-v $(DIR)/tests:/goss \
-		-v /tmp:/tmp \
-		-v /var/run/docker.sock:/var/run/docker.sock \
-		dsuite/goss:latest \
-		dgoss run --entrypoint=/goss/entrypoint.sh $(DOCKER_IMAGE):$(version)
+	@GOSS_FILES_PATH=$(DIR)/tests \
+	 	dgoss run $(DOCKER_IMAGE):$(version) bash -c "sleep 60"
 
 push: ## Push ( usage : make push v=3.12 )
 	$(eval version := $(or $(v),$(latest)))
