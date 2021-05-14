@@ -32,7 +32,7 @@ RUN \
 	&& rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
 
 ## Entrypoint
-ENTRYPOINT ["/entrypoint.sh", "tini", "--"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 ## Start runit
 CMD ["start"]
