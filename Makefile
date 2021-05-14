@@ -44,7 +44,7 @@ push-all: ## Push all supported versions
 	@$(MAKE) push v=3.12
 	@$(MAKE) push v=3.13
 
-build: ## Build ( usage : make build v=3.12 )
+build: ## Build ( usage : make build v=3.13 )
 	$(eval version := $(or $(v),$(latest)))
 	@docker run --rm \
 		-e ALPINE_VERSION=$(version) \
@@ -60,17 +60,17 @@ build: ## Build ( usage : make build v=3.12 )
 		$(DIR)/Dockerfiles
 	@[ "$(version)" = "$(latest)" ] && docker tag $(DOCKER_IMAGE):$(version) $(DOCKER_IMAGE):latest || true
 
-test: ## Test ( usage : make test v=3.12 )
+test: ## Test ( usage : make test v=3.13 )
 	$(eval version := $(or $(v),$(latest)))
 	@GOSS_FILES_PATH=$(DIR)/tests \
 	 	dgoss run $(DOCKER_IMAGE):$(version) bash -c "sleep 60"
 
-push: ## Push ( usage : make push v=3.12 )
+push: ## Push ( usage : make push v=3.13 )
 	$(eval version := $(or $(v),$(latest)))
 	@docker push $(DOCKER_IMAGE):$(version)
 	@[ "$(version)" = "$(latest)" ] && docker push $(DOCKER_IMAGE):latest || true
 
-shell: ## Run shell ( usage : make shell v=3.12 )
+shell: ## Run shell ( usage : make shell v=3.13 )
 	$(eval version := $(or $(v),$(latest)))
 	@$(MAKE) build v=$(version)
 	@docker run -it --rm --init \
