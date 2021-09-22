@@ -1,5 +1,29 @@
 {
-  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+  "terminal.integrated.defaultProfile.windows": "ubuntu (WSL)",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ],
+      "args": [],
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash"
+    },
+    "ubuntu (WSL)": {
+      "path": [
+        "C:\\WINDOWS\\System32\\wsl.exe"
+      ],
+      "args": [],
+      "icon": "terminal-ubuntu"
+    }
+  },
   "terminal.integrated.showExitAlert": false,
 
   "files.autoSave": "afterDelay",

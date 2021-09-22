@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "coenraads.bracket-pair-colorizer-2",
+        "ms-azuretools.vscode-docker",
+        "editorconfig.editorconfig",
+        "exiasr.hadolint",
+        "fabiospampinato.vscode-highlight"
+    ]
+}
