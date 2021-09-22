@@ -1,6 +1,6 @@
 FROM dsuite/alpine-runit
 
-COPY /rootfs /
+COPY rootfs /
 
 RUN \
 	set -x \

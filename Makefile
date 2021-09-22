@@ -25,6 +25,7 @@ build-all: ## Build all supported versions
 	@$(MAKE) build v=3.11
 	@$(MAKE) build v=3.12
 	@$(MAKE) build v=3.13
+	@$(MAKE) build v=3.14
 
 test-all: ## Test all supported versions
 	@$(MAKE) test v=3.7
@@ -34,6 +35,7 @@ test-all: ## Test all supported versions
 	@$(MAKE) test v=3.11
 	@$(MAKE) test v=3.12
 	@$(MAKE) test v=3.13
+	@$(MAKE) test v=3.14
 
 push-all: ## Push all supported versions
 	@$(MAKE) push v=3.7
@@ -43,6 +45,7 @@ push-all: ## Push all supported versions
 	@$(MAKE) push v=3.11
 	@$(MAKE) push v=3.12
 	@$(MAKE) push v=3.13
+	@$(MAKE) push v=3.14
 
 build: ## Build ( usage : make build v=3.13 )
 	$(eval version := $(or $(v),$(latest)))

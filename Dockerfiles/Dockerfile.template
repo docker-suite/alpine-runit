@@ -29,7 +29,7 @@ RUN \
     && curl -s -o /tmp/install-runit.sh https://raw.githubusercontent.com/docker-suite/Install-Scripts/master/alpine-runit/install-runit.sh \
     && sh /tmp/install-runit.sh \
 	# Clear apk's cache
-	&& rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
+	&& apk-cleanup
 
 ## Entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
